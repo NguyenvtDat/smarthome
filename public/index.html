@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/nomalize.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link
+      rel="stylesheet"
+      href="./themify-icons-font/themify-icons/themify-icons.css"
+    />
+    <link rel="stylesheet" href="./fontawesome/css/all.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav-bar">
+        <a href="#" class="avatar"
+          ><img src="./avatar/avatar.jpg" alt="avatar"
+        /></a>
+        <a href="http://127.0.0.1:5500/index.html" class="nav home"
+          ><i class="fas fa-home"></i
+        ></a>
+        <a href="http://127.0.0.1:5500/about.html" class="nav setting"
+          ><i class="fas fa-cog"></i
+        ></a>
+        <a href="#" class="nav info"><i class="fas fa-info"></i></a>
+      </div>
+      <div class="content">
+        <div class="day">
+          <div class="hello-words">
+            <p class="hello">Chào buổi tối, Đạt</p>
+            <p class="wish"></p>
+          </div>
+          <div class="date-time">
+            <p class="time">8:21 PM</p>
+            <p class="date">Thứ hai, 03 tháng 5 2021</p>
+          </div>
+        </div>
+        <div class="room">
+          <div class="room-locate">
+            <div class="second-floor">
+              <button class="btn bed-room-1">Phòng ngủ 1</button>
+              <button class="btn bed-room-2">Phòng ngủ 2</button>
+              <button class="btn bath-room">Phòng tắm</button>
+            </div>
+            <div class="first-floor">
+              <button class="btn living-room">Phòng khách</button>
+              <button class="btn kitchen">Nhà bếp</button>
+            </div>
+          </div>
+          <div class="quick-setting">
+            <button class="btn leaving">Ra ngoài</button>
+            <button class="btn gohome">Về nhà</button>
+          </div>
+        </div>
+        <div class="devices">
+          <div class="devices-btn fan">
+            <div class="divices-icon fan-icon-bgd">
+              <i class="fas fa-fan"></i>
+            </div>
+            <div id="control-fan" class="divices-name">
+              <p>Quạt</p>
+            </div>
+            <div class="divices-switch">
+              <label class="switch">
+                <input type="checkbox" id="fan-switch" />
+                <span class="slider round">
+                  <p class="devices-off">Off</p>
+                  <p class="devices-on">On</p>
+                </span>
+              </label>
+            </div>
+          </div>
+          <div class="devices-btn light">
+            <div class="divices-icon"><i class="fas fa-lightbulb"></i></div>
+            <div class="divices-name">
+              <p>Đèn</p>
+            </div>
+            <div class="divices-switch">
+              <label class="switch">
+                <input type="checkbox" />
+                <span class="slider round">
+                  <p class="devices-off">Off</p>
+                  <p class="devices-on">On</p>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="weather-container">
+        <img
+          class="today-weather"
+          id="today-weather1"
+          src="https://openweathermap.org/img/wn/02d@4x.png"
+          alt="alt"
+        />
+        <div class="weather">
+          <div class="weather-content">
+            <p class="today-weather-descrip">Party cloudy</p>
+            <div class="weather-display">
+              <p>Không có kết nối</p>
+            </div>
+            <div class="weather-detail">
+              <div>
+                <p class="stats indoor-temp">23 &deg;C</p>
+                <p class="stats-name">Nhiệt độ trong nhà</p>
+              </div>
+              <div>
+                <p class="stats outdoor-temp">24 &deg;C</p>
+                <p class="stats-name">Nhiệt độ ngoài trời</p>
+              </div>
+              <div>
+                <p class="stats humidity-percent">64%</p>
+                <p class="stats-name">Độ ẩm</p>
+              </div>
+              <div>
+                <p class="stats wind-speed">13 km/h</p>
+                <p class="stats-name">Vận tốc gió</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="./js/index.js"></script>
+</html>
