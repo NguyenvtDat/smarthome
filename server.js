@@ -9,6 +9,20 @@ const io = socketio(server);
 
 const PORT = process.env.PORT || 3000;
 
+let deviceStatus = {
+  lvFan: "0",
+  lvLight: "0",
+  kcLight: "0",
+  br1Light: "0",
+  br2Light: "0",
+  bathLight: "0",
+  bathWaterHeat: "0",
+};
+// for (let key in result) {
+//   deviceStatus[key] = result[key];
+// }
+console.log(deviceStatus);
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
@@ -21,8 +35,8 @@ app.get("/", (req, res) => {
 });
 //Run when client connects
 io.on("connection", (socket) => {
-  io.emit("message", "welcome to the server");
-  console.log("A new connection");
+  io.emit("connected", { msg: "connected" });
+  socket.emit("updateStatus", { msg: deviceStatus });
 });
 
 server.listen(PORT, () => {

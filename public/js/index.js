@@ -5,6 +5,15 @@ const livingRoom = document.querySelector(".living-room");
 const kitchen = document.querySelector(".kitchen");
 const devices = document.querySelector(".devices");
 let fanStatus = 0;
+let deviceStatus = {
+  lvFan: "0",
+  lvLight: "0",
+  kcLight: "0",
+  br1Light: "0",
+  br2Light: "0",
+  bathLight: "0",
+  bathWaterHeat: "0",
+};
 const url =
   "https://pro.openweathermap.org/data/2.5/forecast/daily?units=metric&q=Hanoi&cnt=5&appid=ba2bf79275214cd1e6c99f6d085fade1&lang=vi";
 //uppercase
@@ -72,7 +81,7 @@ function pad(n) {
 document
   .querySelector(".devices-btn.fan")
   .addEventListener("click", changeStatus);
-
+let test = "fan";
 // Dieu khien thiet bi
 function changeStatus() {
   if (fanStatus == 0) {
@@ -81,15 +90,17 @@ function changeStatus() {
     fanStatus = 0;
   }
   if (fanStatus == 0) {
-    document.querySelector("#fan-switch").checked = false;
-    document.querySelector(".fan").style.backgroundColor = "#1c284f";
-    document.querySelector(".fan-icon-bgd").style.backgroundColor = "#142047";
-    document.querySelector(".fa-fan").style.color = "#ffffff";
+    document.querySelector(`#${test}-switch`).checked = false;
+    document.querySelector(`.${test}`).style.backgroundColor = "#1c284f";
+    document.querySelector(`.${test}-icon-bgd`).style.backgroundColor =
+      "#142047";
+    document.querySelector(`.fa-${test}`).style.color = "#ffffff";
   } else {
-    document.querySelector("#fan-switch").checked = true;
-    document.querySelector(".fan").style.backgroundColor = "#1babfc";
-    document.querySelector(".fan-icon-bgd").style.backgroundColor = "#ffffff";
-    document.querySelector(".fa-fan").style.color = "#1babfc";
+    document.querySelector(`#${test}-switch`).checked = true;
+    document.querySelector(`.${test}`).style.backgroundColor = "#1babfc";
+    document.querySelector(`.${test}-icon-bgd`).style.backgroundColor =
+      "#ffffff";
+    document.querySelector(`.fa-${test}`).style.color = "#1babfc";
   }
   console.log(fanStatus);
 }
@@ -104,23 +115,7 @@ function displayBedRoom1() {
   livingRoom.style.color = "#414a73";
   kitchen.style.color = "#414a73";
 
-  devices.innerHTML = `<div class="devices-btn fan">
-  <div class="divices-icon fan-icon-bgd">
-    <i class="fas fa-fan"></i>
-  </div>
-  <div id="control-fan" class="divices-name">
-    <p>Quạt</p>
-  </div>
-  <div class="divices-switch">
-    <label class="switch">
-      <input type="checkbox" id="fan-switch" />
-      <span class="slider round">
-        <p class="devices-off">Off</p>
-        <p class="devices-on">On</p>
-      </span>
-    </label>
-  </div>
-</div>
+  devices.innerHTML = `
 <div class="devices-btn light">
   <div class="divices-icon"><i class="fas fa-lightbulb"></i></div>
   <div class="divices-name">
@@ -398,3 +393,4 @@ const socket = io();
 socket.on("message", (msg) => {
   console.log(msg);
 });
+socket.on("updateStatus", (msg) => {});
