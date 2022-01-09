@@ -12,11 +12,11 @@ const PORT = process.env.PORT || 3000;
 let deviceStatus = {
   lvFan: "0",
   lvLight: "0",
-  kcLight: "0",
-  br1Light: "0",
-  br2Light: "0",
-  bathLight: "0",
-  bathWaterHeat: "0",
+  kcLight: "1",
+  br1Light: "1",
+  br2Light: "1",
+  bathLight: "1",
+  bathWaterHeat: "1",
 };
 // for (let key in result) {
 //   deviceStatus[key] = result[key];

@@ -4,15 +4,15 @@ const bathRoom = document.querySelector(".bath-room");
 const livingRoom = document.querySelector(".living-room");
 const kitchen = document.querySelector(".kitchen");
 const devices = document.querySelector(".devices");
-let fanStatus = 0;
+let fanStatus = "0";
 let deviceStatus = {
-  lvFan: "0",
-  lvLight: "0",
-  kcLight: "0",
-  br1Light: "0",
-  br2Light: "0",
-  bathLight: "0",
-  bathWaterHeat: "0",
+  lvFan: "1",
+  lvLight: "1",
+  kcLight: "1",
+  br1Light: "1",
+  br2Light: "1",
+  bathLight: "1",
+  bathWaterHeat: "1",
 };
 const url =
   "https://pro.openweathermap.org/data/2.5/forecast/daily?units=metric&q=Hanoi&cnt=5&appid=ba2bf79275214cd1e6c99f6d085fade1&lang=vi";
@@ -78,33 +78,28 @@ function pad(n) {
   return (n < 10 ? "0" : "") + n;
 }
 
-document
-  .querySelector(".devices-btn.fan")
-  .addEventListener("click", changeStatus);
-let test = "fan";
+let test = "lvFan";
 // Dieu khien thiet bi
-function changeStatus() {
-  if (fanStatus == 0) {
-    fanStatus = 1;
+function changeStatus(device) {
+  if (deviceStatus[device] == 0) {
+    fanStatus = "1";
   } else {
-    fanStatus = 0;
+    fanStatus = "0";
   }
-  if (fanStatus == 0) {
-    document.querySelector(`#${test}-switch`).checked = false;
-    document.querySelector(`.${test}`).style.backgroundColor = "#1c284f";
-    document.querySelector(`.${test}-icon-bgd`).style.backgroundColor =
+  if (deviceStatus[device] == 0) {
+    document.querySelector(`.${device}-switch`).checked = false;
+    document.querySelector(`.${device}`).style.backgroundColor = "#1c284f";
+    document.querySelector(`.${device}-icon-bgd`).style.backgroundColor =
       "#142047";
-    document.querySelector(`.fa-${test}`).style.color = "#ffffff";
+    document.querySelector(`.${device}-icon`).style.color = "#ffffff";
   } else {
-    document.querySelector(`#${test}-switch`).checked = true;
-    document.querySelector(`.${test}`).style.backgroundColor = "#1babfc";
-    document.querySelector(`.${test}-icon-bgd`).style.backgroundColor =
+    document.querySelector(`.${device}-switch`).checked = true;
+    document.querySelector(`.${device}`).style.backgroundColor = "#1babfc";
+    document.querySelector(`.${device}-icon-bgd`).style.backgroundColor =
       "#ffffff";
-    document.querySelector(`.fa-${test}`).style.color = "#1babfc";
+    document.querySelector(`.${device}-icon`).style.color = "#1babfc";
   }
-  console.log(fanStatus);
 }
-document.getElementById("fan-switch").disabled = true;
 
 // Chon phong
 bedRoom1.addEventListener("click", displayBedRoom1);
@@ -116,14 +111,14 @@ function displayBedRoom1() {
   kitchen.style.color = "#414a73";
 
   devices.innerHTML = `
-<div class="devices-btn light">
-  <div class="divices-icon"><i class="fas fa-lightbulb"></i></div>
+<div class="devices-btn br1Light">
+  <div class="divices-icon br1Light-icon-bgd"><i class="fas fa-lightbulb br1Light-icon"></i></div>
   <div class="divices-name">
     <p>Đèn</p>
   </div>
   <div class="divices-switch">
     <label class="switch">
-      <input type="checkbox" />
+      <input type="checkbox" class = "br1Light-switch" disabled />
       <span class="slider round">
         <p class="devices-off">Off</p>
         <p class="devices-on">On</p>
@@ -132,9 +127,7 @@ function displayBedRoom1() {
   </div>
 </div>`;
 
-  document
-    .querySelector(".devices-btn.fan")
-    .addEventListener("click", changeStatus);
+  changeStatus("br1Light");
 }
 
 bedRoom2.addEventListener("click", displayBedRoom2);
@@ -145,31 +138,15 @@ function displayBedRoom2() {
   livingRoom.style.color = "#414a73";
   kitchen.style.color = "#414a73";
 
-  devices.innerHTML = `<div class="devices-btn fan">
-  <div class="divices-icon fan-icon-bgd">
-    <i class="fas fa-fan"></i>
-  </div>
-  <div id="control-fan" class="divices-name">
-    <p>Quạt</p>
-  </div>
-  <div class="divices-switch">
-    <label class="switch">
-      <input type="checkbox" id="fan-switch" />
-      <span class="slider round">
-        <p class="devices-off">Off</p>
-        <p class="devices-on">On</p>
-      </span>
-    </label>
-  </div>
-</div>
-<div class="devices-btn light">
-  <div class="divices-icon"><i class="fas fa-lightbulb"></i></div>
+  devices.innerHTML = `
+  <div class="devices-btn br2Light">
+  <div class="divices-icon br2Light-icon-bgd"><i class="fas fa-lightbulb br2Light-icon"></i></div>
   <div class="divices-name">
     <p>Đèn</p>
   </div>
   <div class="divices-switch">
     <label class="switch">
-      <input type="checkbox" />
+      <input type="checkbox" class = "br2Light-switch" disabled />
       <span class="slider round">
         <p class="devices-off">Off</p>
         <p class="devices-on">On</p>
@@ -178,9 +155,7 @@ function displayBedRoom2() {
   </div>
 </div>`;
 
-  document
-    .querySelector(".devices-btn.fan")
-    .addEventListener("click", changeStatus);
+  changeStatus("br2Light");
 }
 
 bathRoom.addEventListener("click", displayBathRoom);
@@ -191,16 +166,16 @@ function displayBathRoom() {
   livingRoom.style.color = "#414a73";
   kitchen.style.color = "#414a73";
 
-  devices.innerHTML = `<div class="devices-btn fan">
-  <div class="divices-icon fan-icon-bgd">
-    <i class="fas fa-fan"></i>
+  devices.innerHTML = `<div class="devices-btn bathWaterHeat">
+  <div class="divices-icon bathWaterHeat-icon-bgd">
+  <i class="fas fa-hot-tub bathWaterHeat-icon"></i>
   </div>
   <div id="control-fan" class="divices-name">
     <p>Bình nóng lạnh</p>
   </div>
-  <div class="divices-switch">
+  <div class="divices-switch" >
     <label class="switch">
-      <input type="checkbox" id="fan-switch" />
+      <input type="checkbox" class="bathWaterHeat-switch" disabled/>
       <span class="slider round">
         <p class="devices-off">Off</p>
         <p class="devices-on">On</p>
@@ -208,14 +183,14 @@ function displayBathRoom() {
     </label>
   </div>
 </div>
-<div class="devices-btn light">
-  <div class="divices-icon"><i class="fas fa-lightbulb"></i></div>
+<div class="devices-btn bathLight">
+  <div class="divices-icon bathLight-icon-bgd"><i class="fas fa-lightbulb bathLight-icon"></i></div>
   <div class="divices-name">
     <p>Đèn</p>
   </div>
   <div class="divices-switch">
     <label class="switch">
-      <input type="checkbox" />
+      <input type="checkbox" class = "bathLight-switch" disabled/>
       <span class="slider round">
         <p class="devices-off">Off</p>
         <p class="devices-on">On</p>
@@ -224,9 +199,8 @@ function displayBathRoom() {
   </div>
 </div>`;
 
-  document
-    .querySelector(".devices-btn.fan")
-    .addEventListener("click", changeStatus);
+  changeStatus("bathLight");
+  changeStatus("bathWaterHeat");
 }
 
 livingRoom.addEventListener("click", displayLivingRoom);
@@ -237,16 +211,16 @@ function displayLivingRoom() {
   livingRoom.style.color = "whitesmoke";
   kitchen.style.color = "#414a73";
 
-  devices.innerHTML = `<div class="devices-btn fan">
-  <div class="divices-icon fan-icon-bgd">
-    <i class="fas fa-fan"></i>
+  devices.innerHTML = `<div class="devices-btn lvFan">
+  <div class="divices-icon lvFan-icon-bgd">
+    <i class="fas fa-fan lvFan-icon"></i>
   </div>
   <div id="control-fan" class="divices-name">
     <p>Quạt</p>
   </div>
   <div class="divices-switch">
     <label class="switch">
-      <input type="checkbox" id="fan-switch" />
+      <input type="checkbox" class="lvFan-switch" disabled/>
       <span class="slider round">
         <p class="devices-off">Off</p>
         <p class="devices-on">On</p>
@@ -254,14 +228,14 @@ function displayLivingRoom() {
     </label>
   </div>
 </div>
-<div class="devices-btn light">
-  <div class="divices-icon"><i class="fas fa-lightbulb"></i></div>
+<div class="devices-btn lvLight">
+  <div class="divices-icon lvLight-icon-bgd"><i class="fas fa-lightbulb lvLight-icon"></i></div>
   <div class="divices-name">
     <p>Đèn</p>
   </div>
   <div class="divices-switch">
     <label class="switch">
-      <input type="checkbox" />
+      <input type="checkbox" class = "lvLight-switch" disabled/>
       <span class="slider round">
         <p class="devices-off">Off</p>
         <p class="devices-on">On</p>
@@ -269,10 +243,8 @@ function displayLivingRoom() {
     </label>
   </div>
 </div>`;
-
-  document
-    .querySelector(".devices-btn.fan")
-    .addEventListener("click", changeStatus);
+  changeStatus("lvFan");
+  changeStatus("lvLight");
 }
 
 kitchen.addEventListener("click", displayKitchen);
@@ -283,31 +255,15 @@ function displayKitchen() {
   livingRoom.style.color = "#414a73";
   kitchen.style.color = "whitesmoke";
 
-  devices.innerHTML = `<div class="devices-btn fan">
-  <div class="divices-icon fan-icon-bgd">
-    <i class="fas fa-fan"></i>
-  </div>
-  <div id="control-fan" class="divices-name">
-    <p>Quạt</p>
-  </div>
-  <div class="divices-switch">
-    <label class="switch">
-      <input type="checkbox" id="fan-switch" />
-      <span class="slider round">
-        <p class="devices-off">Off</p>
-        <p class="devices-on">On</p>
-      </span>
-    </label>
-  </div>
-</div>
-<div class="devices-btn light">
-  <div class="divices-icon"><i class="fas fa-lightbulb"></i></div>
+  devices.innerHTML = `
+<div class="devices-btn kcLight">
+  <div class="divices-icon kcLight-icon-bgd"><i class="fas fa-lightbulb kcLight-icon"></i></div>
   <div class="divices-name">
     <p>Đèn</p>
   </div>
   <div class="divices-switch">
     <label class="switch">
-      <input type="checkbox" />
+      <input type="checkbox" class="kcLight-switch" disabled/>
       <span class="slider round">
         <p class="devices-off">Off</p>
         <p class="devices-on">On</p>
@@ -315,10 +271,7 @@ function displayKitchen() {
     </label>
   </div>
 </div>`;
-
-  document
-    .querySelector(".devices-btn.fan")
-    .addEventListener("click", changeStatus);
+  changeStatus("kcLight");
 }
 
 displayLivingRoom();
@@ -393,4 +346,12 @@ const socket = io();
 socket.on("message", (msg) => {
   console.log(msg);
 });
-socket.on("updateStatus", (msg) => {});
+socket.on("updateStatus", (msg) => {
+  for (let key in msg.msg) {
+    deviceStatus[key] = msg.msg[key];
+    try {
+      changeStatus(key);
+    } catch (error) {}
+  }
+  console.log(deviceStatus);
+});
