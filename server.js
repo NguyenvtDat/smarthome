@@ -2,7 +2,6 @@ const path = require("path");
 const express = require("express");
 const http = require("http");
 const socketio = require("socket.io");
-const { time } = require("console");
 
 const app = express();
 const server = http.createServer(app);
@@ -39,9 +38,6 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   //io.emit("connected", { msg: "connected" });
   socket.emit("updateStatus", { msg: deviceStatus });
-  socket.on("connectionSocket", (msg) => {
-    //console.log(msg);
-  });
   socket.on("command", (msg) => {
     socket.broadcast.emit("megacommand", msg);
   });
@@ -58,6 +54,12 @@ esp8266_nsp.on("connection", (socket) => {
   clearTimeout(isDisconnect);
   io.emit("esp8266", "connected");
   Timer();
+  socket.on("changeStatus", (msg) => {
+    msg = msg.replace(/'/g, '"');
+  });
+  socket.on("connectionSocket", (msg) => {
+    console.log(msg);
+  });
 });
 
 server.listen(PORT, () => {
