@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const http = require("http");
 const socketio = require("socket.io");
+const { time } = require("console");
 
 const app = express();
 const server = http.createServer(app);
@@ -9,6 +10,7 @@ const io = socketio(server);
 
 const PORT = process.env.PORT || 3000;
 
+const esp8266_nsp = io.of("/esp8266");
 let deviceStatus = {
   lvFan: "0",
   lvLight: "0",
@@ -35,8 +37,27 @@ app.get("/", (req, res) => {
 });
 //Run when client connects
 io.on("connection", (socket) => {
-  io.emit("connected", { msg: "connected" });
+  //io.emit("connected", { msg: "connected" });
   socket.emit("updateStatus", { msg: deviceStatus });
+  socket.on("connectionSocket", (msg) => {
+    //console.log(msg);
+  });
+  socket.on("command", (msg) => {
+    socket.broadcast.emit("megacommand", msg);
+  });
+});
+//Confirm esp8266 disconnect
+let isDisconnect;
+function Timer() {
+  isDisconnect = setTimeout(function () {
+    io.emit("esp8266", "disconnected");
+  }, 120000);
+}
+
+esp8266_nsp.on("connection", (socket) => {
+  clearTimeout(isDisconnect);
+  io.emit("esp8266", "connected");
+  Timer();
 });
 
 server.listen(PORT, () => {

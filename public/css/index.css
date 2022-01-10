@@ -9,6 +9,20 @@ body {
   height: 100%;
 }
 
+.alert {
+  position: absolute;
+  top: 2%;
+  left: 40%;
+  background-color: rgba(107, 41, 250, 0.5);
+  width: 100px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 10px;
+  color: whitesmoke;
+  box-shadow: 2px 4px 7px #888888;
+}
+
 .container {
   width: 80vw;
   height: 90vh;
@@ -82,9 +96,31 @@ body {
   text-align: right;
 }
 
+.date-time .date {
+  margin: 5px 0px 0px;
+}
+
 .hello-words .hello {
   font-size: 30px;
   margin: 0px;
+}
+
+.device-connect {
+  display: flex;
+  flex-direction: row;
+}
+
+.device-indicator {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 5px;
+  margin: auto 0;
+}
+
+.device-connect-status {
+  color: whitesmoke;
+  margin: 5px;
 }
 
 .content .room {
@@ -176,7 +212,7 @@ body {
   justify-items: center;
   align-items: center;
   width: 93%;
-  height: 30vh;
+  height: 27vh;
   background-color: rgb(16, 28, 67);
   border-radius: 30px;
 }

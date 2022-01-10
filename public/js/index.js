@@ -20,6 +20,15 @@ const url =
 function ucFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+function tempAlert() {
+  var el = document.createElement("div");
+  el.classList.add("alert");
+  el.innerHTML = "Đang xử lí";
+  setTimeout(function () {
+    el.parentNode.removeChild(el);
+  }, 800);
+  document.body.appendChild(el);
+}
 let monthNames = new Array(
   "01",
   "02",
@@ -65,12 +74,11 @@ function ngaythang() {
 }
 gio();
 ngaythang();
-setInterval(gio, 6000);
+setInterval(gio, 10000);
 function gio() {
   var time = new Date();
   var gio = pad(parseInt(time.getHours()));
   var phut = pad(parseInt(time.getMinutes()));
-  var giay = pad(parseInt(time.getSeconds()));
 
   document.querySelector(".time").innerHTML = gio + ":" + phut;
 }
@@ -126,7 +134,10 @@ function displayBedRoom1() {
     </label>
   </div>
 </div>`;
-
+  document.querySelector(".br1Light").addEventListener("click", () => {
+    socket.emit("command", "br1Light");
+    tempAlert();
+  });
   changeStatus("br1Light");
 }
 
@@ -154,7 +165,9 @@ function displayBedRoom2() {
     </label>
   </div>
 </div>`;
-
+  document.querySelector(".br2Light").addEventListener("click", () => {
+    socket.emit("command", "br2Light");
+  });
   changeStatus("br2Light");
 }
 
@@ -198,7 +211,14 @@ function displayBathRoom() {
     </label>
   </div>
 </div>`;
-
+  document.querySelector(".bathLight").addEventListener("click", () => {
+    socket.emit("command", "bathLight");
+    tempAlert();
+  });
+  document.querySelector(".bathWaterHeat").addEventListener("click", () => {
+    socket.emit("command", "bathWaterHeat");
+    tempAlert();
+  });
   changeStatus("bathLight");
   changeStatus("bathWaterHeat");
 }
@@ -245,6 +265,14 @@ function displayLivingRoom() {
 </div>`;
   changeStatus("lvFan");
   changeStatus("lvLight");
+  document.querySelector(".lvFan").addEventListener("click", () => {
+    socket.emit("command", "lvFan");
+    tempAlert();
+  });
+  document.querySelector(".lvLight").addEventListener("click", () => {
+    socket.emit("command", "lvLight");
+    tempAlert();
+  });
 }
 
 kitchen.addEventListener("click", displayKitchen);
@@ -272,6 +300,10 @@ function displayKitchen() {
   </div>
 </div>`;
   changeStatus("kcLight");
+  document.querySelector(".kcLight").addEventListener("click", () => {
+    socket.emit("command", "kcLight");
+    tempAlert();
+  });
 }
 
 displayLivingRoom();
@@ -354,4 +386,10 @@ socket.on("updateStatus", (msg) => {
     } catch (error) {}
   }
   console.log(deviceStatus);
+});
+socket.on("esp8266", (msg) => {
+  console.log(msg);
+});
+socket.on("test", (msg) => {
+  console.log(msg);
 });
