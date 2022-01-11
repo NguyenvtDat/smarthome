@@ -4,15 +4,17 @@ const bathRoom = document.querySelector(".bath-room");
 const livingRoom = document.querySelector(".living-room");
 const kitchen = document.querySelector(".kitchen");
 const devices = document.querySelector(".devices");
+const indoorTemp = document.querySelector(".indoor-temp");
 let fanStatus = "0";
 let deviceStatus = {
-  lvFan: "1",
-  lvLight: "1",
-  kcLight: "1",
-  br1Light: "1",
-  br2Light: "1",
-  bathLight: "1",
-  bathWaterHeat: "1",
+  lvFan: 1,
+  lvLight: 1,
+  kcLight: 1,
+  br1Light: 1,
+  br2Light: 1,
+  bathLight: 1,
+  bathWaterHeat: 1,
+  temp: "1",
 };
 const url =
   "https://pro.openweathermap.org/data/2.5/forecast/daily?units=metric&q=Hanoi&cnt=5&appid=ba2bf79275214cd1e6c99f6d085fade1&lang=vi";
@@ -385,7 +387,7 @@ socket.on("updateStatus", (msg) => {
       changeStatus(key);
     } catch (error) {}
   }
-  console.log(deviceStatus);
+  indoorTemp.innerHTML = deviceStatus.temp + "&deg;C";
 });
 socket.on("esp8266", (msg) => {
   console.log(msg);

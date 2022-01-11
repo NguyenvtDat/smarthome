@@ -13,15 +13,14 @@ const esp8266_nsp = io.of("/esp8266");
 let deviceStatus = {
   lvFan: "0",
   lvLight: "0",
-  kcLight: "1",
-  br1Light: "1",
-  br2Light: "1",
-  bathLight: "1",
-  bathWaterHeat: "1",
+  kcLight: "0",
+  br1Light: "0",
+  br2Light: "0",
+  bathLight: "0",
+  bathWaterHeat: "0",
+  temp: "1",
 };
-// for (let key in result) {
-//   deviceStatus[key] = result[key];
-// }
+
 console.log(deviceStatus);
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -53,12 +52,23 @@ function Timer() {
 esp8266_nsp.on("connection", (socket) => {
   clearTimeout(isDisconnect);
   io.emit("esp8266", "connected");
+  console.log("esp connected");
   Timer();
   socket.on("changeStatus", (msg) => {
     msg = msg.replace(/'/g, '"');
   });
   socket.on("connectionSocket", (msg) => {
     console.log(msg);
+  });
+  socket.on("device", (espMsg) => {
+    console.log(espMsg.message);
+    espMsg.message = espMsg.message.replace(/'/g, '"');
+    espMsg.message = JSON.parse(espMsg.message);
+    for (let key in espMsg.message) {
+      deviceStatus[key] = espMsg.message[key];
+    }
+    io.emit("updateStatus", { msg: espMsg.message });
+    console.log(deviceStatus);
   });
 });
 
