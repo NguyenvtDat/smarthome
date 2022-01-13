@@ -20,7 +20,7 @@ let deviceStatus = {
   bathWaterHeat: "0",
   temp: "1",
 };
-
+let espStatus = 0;
 console.log(deviceStatus);
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -37,6 +37,7 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   //io.emit("connected", { msg: "connected" });
   socket.emit("updateStatus", { msg: deviceStatus });
+  socket.emit("espStatus", { msg: espStatus });
   socket.on("command", (msg) => {
     socket.broadcast.emit("megacommand", msg);
   });
@@ -45,13 +46,15 @@ io.on("connection", (socket) => {
 let isDisconnect;
 function Timer() {
   isDisconnect = setTimeout(function () {
-    io.emit("esp8266", "disconnected");
-  }, 120000);
+    io.emit("espStatus", { msg: "0" });
+    espStatus = "0";
+  }, 8000);
 }
 
 esp8266_nsp.on("connection", (socket) => {
   clearTimeout(isDisconnect);
-  io.emit("esp8266", "connected");
+  io.emit("espStatus", { msg: "1" });
+  espStatus = "1";
   console.log("esp connected");
   Timer();
   socket.on("changeStatus", (msg) => {
@@ -63,7 +66,9 @@ esp8266_nsp.on("connection", (socket) => {
   socket.on("device", (espMsg) => {
     console.log(espMsg.message);
     espMsg.message = espMsg.message.replace(/'/g, '"');
-    espMsg.message = JSON.parse(espMsg.message);
+    try {
+      espMsg.message = JSON.parse(espMsg.message);
+    } catch (error) {}
     for (let key in espMsg.message) {
       deviceStatus[key] = espMsg.message[key];
     }
@@ -71,7 +76,6 @@ esp8266_nsp.on("connection", (socket) => {
     console.log(deviceStatus);
   });
 });
-
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

@@ -7,15 +7,16 @@ const devices = document.querySelector(".devices");
 const indoorTemp = document.querySelector(".indoor-temp");
 let fanStatus = "0";
 let deviceStatus = {
-  lvFan: 1,
-  lvLight: 1,
-  kcLight: 1,
-  br1Light: 1,
-  br2Light: 1,
-  bathLight: 1,
-  bathWaterHeat: 1,
-  temp: "1",
+  lvFan: 0,
+  lvLight: 0,
+  kcLight: 0,
+  br1Light: 0,
+  br2Light: 0,
+  bathLight: 0,
+  bathWaterHeat: 0,
+  temp: 0,
 };
+
 const url =
   "https://pro.openweathermap.org/data/2.5/forecast/daily?units=metric&q=Hanoi&cnt=5&appid=ba2bf79275214cd1e6c99f6d085fade1&lang=vi";
 //uppercase
@@ -389,8 +390,17 @@ socket.on("updateStatus", (msg) => {
   }
   indoorTemp.innerHTML = deviceStatus.temp + "&deg;C";
 });
-socket.on("esp8266", (msg) => {
+socket.on("espStatus", (msg) => {
   console.log(msg);
+  const idicator = document.querySelector(".device-indicator");
+  const connectStatus = document.querySelector(".device-connect-status");
+  if (msg.msg == 1) {
+    idicator.style.backgroundColor = "green";
+    connectStatus.innerHTML = "Đã kết nối";
+  } else {
+    idicator.style.backgroundColor = "red";
+    connectStatus.innerHTML = "Mất kết nối";
+  }
 });
 socket.on("test", (msg) => {
   console.log(msg);
