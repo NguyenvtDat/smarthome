@@ -371,7 +371,14 @@ function fetchWeather() {
     })
     .catch(console.err);
 }
-
+document.querySelector(".leaving").addEventListener("click", () => {
+  socket.emit("command", "leaving_home");
+  tempAlert();
+});
+document.querySelector(".gohome").addEventListener("click", () => {
+  socket.emit("command", "back_home");
+  tempAlert();
+});
 fetchWeather();
 
 // communicate to server
