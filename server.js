@@ -48,7 +48,7 @@ function Timer() {
   isDisconnect = setTimeout(function () {
     io.emit("espStatus", { msg: "0" });
     espStatus = "0";
-  }, 8000);
+  }, 35000);
 }
 
 esp8266_nsp.on("connection", (socket) => {
