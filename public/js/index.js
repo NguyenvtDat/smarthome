@@ -187,7 +187,7 @@ function displayBathRoom() {
   <i class="fas fa-hot-tub bathWaterHeat-icon"></i>
   </div>
   <div id="control-fan" class="divices-name">
-    <p>Bình nóng lạnh</p>
+    <p>Nóng lạnh</p>
   </div>
   <div class="divices-switch" >
     <label class="switch">

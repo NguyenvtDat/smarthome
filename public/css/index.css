@@ -141,29 +141,31 @@ body {
   color: #414a73;
   border: solid black;
   border-radius: 5px;
+  line-height: 21px;
 }
 
 .second-floor {
   width: 100%;
   margin: 0 auto;
   font-size: 21px;
+  height: 18vh;
 }
 
 .second-floor .bed-room-1 {
   width: 30%;
-  height: 170px;
+  height: 17vh;
   cursor: pointer;
 }
 
 .second-floor .bed-room-2 {
   width: 40%;
-  height: 170px;
+  height: 17vh;
   cursor: pointer;
 }
 
 .second-floor .bath-room {
-  width: calc(28% - 1px);
-  height: 170px;
+  width: calc(28% - 6px);
+  height: 17vh;
   cursor: pointer;
 }
 
@@ -175,13 +177,13 @@ body {
 
 .first-floor .living-room {
   width: calc(70% + 5px);
-  height: 170px;
+  height: 17vh;
   cursor: pointer;
 }
 
 .first-floor .kitchen {
-  width: 28%;
-  height: 170px;
+  width: calc(27% + 1px);
+  height: 17vh;
   cursor: pointer;
 }
 
@@ -194,14 +196,14 @@ body {
 
 .quick-setting .leaving {
   width: 100%;
-  height: 170px;
+  height: 17vh;
   margin-bottom: 3px;
   cursor: pointer;
 }
 
 .quick-setting .gohome {
   width: 100%;
-  height: 170px;
+  height: 17vh;
   cursor: pointer;
 }
 
@@ -504,4 +506,84 @@ input:checked + .slider:before {
   color: rgb(98, 108, 155);
   font-size: 12px;
   margin: 0px;
+}
+
+@media only screen and (max-width: 1570px) {
+  .container {
+    width: 90vw;
+  }
+}
+@media only screen and (max-width: 1420px) {
+  .container {
+    width: 98vw;
+  }
+  .content {
+    width: 65vw;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .weather-detail .stats {
+    color: whitesmoke;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-width: 1210px) {
+  .weather-container {
+    display: none;
+  }
+  .content {
+    width: 85vw;
+  }
+  .container {
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 780px) {
+  .second-floor {
+    font-size: 16px;
+  }
+  .first-floor {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  .devices {
+    grid-template-columns: 100%;
+    grid-template-rows: 50% 50%;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .nav-bar {
+    display: none;
+  }
+  .content {
+    width: 95vw;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .room-locate {
+    width: 95%;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .first-floor .living-room {
+    width: calc(68% + 5px);
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .first-floor .living-room {
+    width: calc(65% + 5px);
+  }
+  .second-floor .bed-room-2 {
+    width: 35%;
+  }
 }
