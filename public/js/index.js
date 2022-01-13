@@ -376,7 +376,7 @@ fetchWeather();
 
 // communicate to server
 
-const socket = io();
+const socket = io("https://supersmarthome.herokuapp.com/");
 
 socket.on("message", (msg) => {
   console.log(msg);
