@@ -5,6 +5,7 @@ const livingRoom = document.querySelector(".living-room");
 const kitchen = document.querySelector(".kitchen");
 const devices = document.querySelector(".devices");
 const indoorTemp = document.querySelector(".indoor-temp");
+const outdoorTemp = document.querySelector(".outdoor-temp");
 let fanStatus = "0";
 let deviceStatus = {
   lvFan: 0,
@@ -396,6 +397,7 @@ socket.on("updateStatus", (msg) => {
     } catch (error) {}
   }
   indoorTemp.innerHTML = deviceStatus.temp + "&deg;C";
+  outdoorTemp.innerHTML = deviceStatus.temp + "&deg;C";
 });
 socket.on("espStatus", (msg) => {
   console.log(msg);
